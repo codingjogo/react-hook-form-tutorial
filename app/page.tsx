@@ -27,6 +27,7 @@ interface FormValues {
 
 export default function Home() {
 	const {
+		handleSubmit,
 		register,
 		formState: { errors },
 		control,
@@ -43,11 +44,18 @@ export default function Home() {
 	const { fields, append, prepend, remove } = useFieldArray({
 		name: "cart",
 		control,
+		rules: {
+			required: 'Please append at least 1 item',
+		}
 	});
+
+	const onSubmit = (data) => {
+		console.log(data)
+	}
 
 	return (
 		<main className="container mx-auto py-8 flex items-center justify-center">
-			<form className="max-w-screen-sm">
+			<form className="max-w-screen-sm" onSubmit={handleSubmit(onSubmit)}>
 				<Card>
 					<CardHeader>
 						<CardTitle className="text-2xl font-semibold">
@@ -105,6 +113,8 @@ export default function Home() {
 								</Fragment>
 							);
 						})}
+
+						<p className="text-sm text-destructive">{errors.cart?.root?.message}</p>
 
 						{/* Buttons for RFH */}
 						<div className="flex items-center space-x-3">

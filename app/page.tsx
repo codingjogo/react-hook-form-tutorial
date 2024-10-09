@@ -14,7 +14,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Home() {
-  const { register, formState: {errors}, control} = useForm();
+  const { register, formState: {errors}, control} = useForm({
+    defaultValues: {
+      cart: [
+        {
+          name: '',
+          amount: '',
+        }
+      ]
+    }
+  });
   const { fields } = useFieldArray({
     name: 'cart',
     control,

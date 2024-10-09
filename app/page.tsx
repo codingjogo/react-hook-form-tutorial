@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Plus, Trash } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Fragment } from "react";
 
 type Cart = {
 	name: string;
@@ -54,35 +57,52 @@ export default function Home() {
 					<CardContent className="grid space-y-3">
 						{fields.map((field, index) => {
 							return (
-								<div
-									key={field.id}
-									className="flex items-center space-x-3"
-								>
-									{/* Name */}
-									<div>
-										<Label className="text-lead font-semibold">
-											Name
-										</Label>
-										<Input
-											placeholder="Name"
-											{...register(`cart.${index}.name`)}
-										/>
+								<Fragment key={field.id}>
+									<div className="flex items-center space-x-3">
+										<div className="flex space-x-3">
+											{/* Name */}
+											<div>
+												<Label className="text-lead font-semibold">
+													Name
+												</Label>
+												<Input
+													placeholder="Name"
+													{...register(
+														`cart.${index}.name`
+													)}
+												/>
+											</div>
+											{/* Amount */}
+											<div>
+												<Label className="text-lead font-semibold">
+													Amount
+												</Label>
+												<Input
+													type="number"
+													placeholder="Amount"
+													{...register(
+														`cart.${index}.amount`,
+														{ valueAsNumber: true }
+													)}
+												/>
+											</div>
+										</div>
+										<div className="h-full flex justify-end items-end">
+											<Button
+												variant={"destructive"}
+												size={"sm"}
+												type="button"
+												onClick={() => remove(index)}
+												className="rounded-full p-2 "
+											>
+												<Trash className="w-4 h-4" />
+											</Button>
+										</div>
 									</div>
-									{/* Amount */}
-									<div>
-										<Label className="text-lead font-semibold">
-											Amount
-										</Label>
-										<Input
-											type="number"
-											placeholder="Amount"
-											{...register(
-												`cart.${index}.amount`,
-												{ valueAsNumber: true }
-											)}
-										/>
-									</div>
-								</div>
+									{index !== fields.length - 1 && (
+										<Separator className="my-4" />
+									)}
+								</Fragment>
 							);
 						})}
 
@@ -90,14 +110,18 @@ export default function Home() {
 						<div className="flex items-center space-x-3">
 							<Button
 								type="button"
-								onClick={() => append({ name: "append", amount: 0 })}
+								onClick={() =>
+									append({ name: "append", amount: 0 })
+								}
 							>
 								Append
 							</Button>
 							<Button
 								type="button"
 								variant={"secondary"}
-								onClick={() => prepend({ name: "pre-pend", amount: 0 })}
+								onClick={() =>
+									prepend({ name: "pre-pend", amount: 0 })
+								}
 							>
 								Prepend
 							</Button>

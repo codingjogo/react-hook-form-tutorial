@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Fragment } from "react";
 
@@ -41,6 +41,7 @@ export default function Home() {
 			],
 		},
 	});
+
 	const { fields, append, prepend, remove } = useFieldArray({
 		name: "cart",
 		control,
@@ -49,7 +50,25 @@ export default function Home() {
 		}
 	});
 
-	const onSubmit = (data) => {
+	const getTotal = (payload: FormValues['cart']) => {
+		let total = 0;
+
+		for(const item of payload) {
+			total = total + (Number.isNaN(item.amount) ? 0 : item.amount);
+		}
+
+		return total;
+	}
+
+	const TotalAmount = ({control} : {control: Control<FormValues>}) => {
+		const cartValues = useWatch({
+			control,
+			name: 'cart'
+		})
+		return <p>${getTotal(cartValues)}</p>
+	}
+
+	const onSubmit = (data: FormValues) => {
 		console.log(data)
 	}
 
@@ -115,6 +134,8 @@ export default function Home() {
 						})}
 
 						<p className="text-sm text-destructive">{errors.cart?.root?.message}</p>
+
+						<TotalAmount control={control}/>
 
 						{/* Buttons for RFH */}
 						<div className="flex items-center space-x-3">

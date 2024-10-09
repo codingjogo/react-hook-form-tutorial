@@ -1,3 +1,7 @@
+'use client';
+
+import { Control, useFieldArray, useForm, useWatch } from 'react-hook-form'
+
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -10,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Home() {
+  const { register, formState: {errors}, control} = useForm();
+
 	return (
 		<main className="container mx-auto py-8 flex items-center justify-center">
 			<form className="max-w-screen-sm">

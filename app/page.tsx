@@ -37,7 +37,7 @@ export default function Home() {
 			],
 		},
 	});
-	const { fields } = useFieldArray({
+	const { fields, append, prepend, remove } = useFieldArray({
 		name: "cart",
 		control,
 	});
@@ -88,8 +88,17 @@ export default function Home() {
 
 						{/* Buttons for RFH */}
 						<div className="flex items-center space-x-3">
-							<Button type="button">Append</Button>
-							<Button type="button" variant={"secondary"}>
+							<Button
+								type="button"
+								onClick={() => append({ name: "append", amount: 0 })}
+							>
+								Append
+							</Button>
+							<Button
+								type="button"
+								variant={"secondary"}
+								onClick={() => prepend({ name: "pre-pend", amount: 0 })}
+							>
 								Prepend
 							</Button>
 						</div>

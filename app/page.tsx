@@ -78,7 +78,7 @@ export default function Home() {
 				<Card>
 					<CardHeader>
 						<CardTitle className="text-2xl font-semibold">
-							Form Tutorial with Zod Validation
+							Form Tutorial with React Form Hook
 						</CardTitle>
 					</CardHeader>
 					<CardContent className="grid space-y-3">

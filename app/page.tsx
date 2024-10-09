@@ -13,13 +13,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+type Cart = {
+  name: string;
+  amount: number;
+}
+
+interface FormValues {
+  cart: Cart[]
+}
+
 export default function Home() {
-  const { register, formState: {errors}, control} = useForm({
+  const { register, formState: {errors}, control} = useForm<FormValues>({
     defaultValues: {
       cart: [
         {
           name: '',
-          amount: '',
+          amount: 0,
         }
       ]
     }

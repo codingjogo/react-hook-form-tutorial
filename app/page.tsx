@@ -15,6 +15,10 @@ import { Label } from "@/components/ui/label";
 
 export default function Home() {
   const { register, formState: {errors}, control} = useForm();
+  const { fields } = useFieldArray({
+    name: 'cart',
+    control,
+  })
 
 	return (
 		<main className="container mx-auto py-8 flex items-center justify-center">
